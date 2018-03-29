@@ -116,6 +116,7 @@ public class Sample {
 
         System.out.println ("\n\nTesting Annotations now...\n\n");
         Class <TestExample> obj = TestExample.class;
+
         // Process @TesterInfo
         if (obj.isAnnotationPresent (TesterInfo.class)) {
 
