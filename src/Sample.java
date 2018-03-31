@@ -1,5 +1,6 @@
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -111,16 +112,16 @@ public class Sample {
         }
 
         /*
-         * Now Test the Annotations
+         * Now Test the Annotations in Class
          */
 
-        System.out.println ("\n\nTesting Annotations now...\n\n");
-        Class <TestExample> obj = TestExample.class;
+        System.out.println("\n\nTesting Annotations now in class...\n\n");
+        Class <TestExample> testExampleClass = TestExample.class;
 
         // Process @TesterInfo
-        if (obj.isAnnotationPresent (TesterInfo.class)) {
+        if (testExampleClass.isAnnotationPresent(TesterInfo.class)) {
 
-            Annotation annotation = obj.getAnnotation (TesterInfo.class);
+            Annotation annotation = testExampleClass.getAnnotation(TesterInfo.class);
             TesterInfo testerInfo = (TesterInfo) annotation;
 
             System.out.printf ("%nPriority :%s", testerInfo.priority ( ));
@@ -140,6 +141,45 @@ public class Sample {
             System.out.printf ("%nLastModified :%s%n%n", testerInfo.lastModified ( ));
 
         }
+
+        /*
+         * Now Test the Annotations in each method of that class
+         */
+
+        System.out.println("\n\nTesting Annotations now in each method of that class...\n\n");
+        int passed = 0, failed = 0, count = 0, ignore = 0;
+
+        // Process @TestingAnnotations
+        for (Method method : testExampleClass.getDeclaredMethods()) {
+
+            // if method is annotated with @TestingAnnotations
+            if (method.isAnnotationPresent(TestingAnnotations.class)) {
+
+                Annotation annotation = method.getAnnotation(TestingAnnotations.class);
+                TestingAnnotations test = (TestingAnnotations) annotation;
+
+                // if enabled = true (default)
+                if (test.enabled()) {
+
+                    try {
+                        method.invoke(testExampleClass.newInstance());
+                        System.out.printf("%s - Test '%s' - passed %n", ++count, method.getName());
+                        passed++;
+                    } catch (Throwable ex) {
+                        System.out.printf("%s - Test '%s' - failed: %s %n", ++count, method.getName(), ex.getCause());
+                        failed++;
+                    }
+
+                } else {
+                    System.out.printf("%s - Test '%s' - ignored%n", ++count, method.getName());
+                    ignore++;
+                }
+
+            }
+
+        }
+        System.out.printf("%nResult : Total : %d, Passed: %d, Failed %d, Ignore %d%n", count, passed, failed, ignore);
+
     }
 
     public static void setName(String s, FunctionalInterfaceTest t) {
