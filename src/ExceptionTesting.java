@@ -19,6 +19,7 @@ public class ExceptionTesting {
             System.out.println("No Exception caught in main(): ");
             System.out.println("No Exception2 caught in main(): ");
             System.out.println("Child Exception  caught in main(): ");
+            System.out.println("Child Exception 2 caught in main(): ");
         } catch (SQLException e) {
             Throwable t = Throwables.getRootCause(e);
             System.out.println("Exception caught in main(): " + t);
