@@ -1,0 +1,21 @@
+*.class
+# Eclipse files
+.classpath
+.project
+.settings/
+target/
+build
+*/src/main/resources/build.properties
+*/*/src/main/resources/build.properties
+# Intellij files
+.idea/
+*.iml
+# Package Files #
+*.war
+*.ear
+.DS_Store
+*.log
+.reviewboardrc
+.checkstyle
+*.tokens
+*/out/

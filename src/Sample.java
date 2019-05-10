@@ -1,17 +1,48 @@
-import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Spliterator;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
+//import java.net.URLDecoder;
+
 public class Sample {
+    enum Gender {
+        MALE("male"), FEMALE("female");
+        private String name;
+        Gender(String name){
+            this.name = name;
+        }
+
+        String getName() {
+            return name;
+        }
+    };
+
     public static void main(String []args) {
+
+        try {
+            testException();
+        } catch (NullPointerException e) {
+            System.out.println("Exception in main class");
+        }
+
+        Gender genderType = Gender.MALE;
+        if (genderType == Gender.MALE) {
+            System.out.println("Male found");
+        }
+        genderType = null;
+        if (genderType == Gender.MALE) {
+            System.out.println("Male found again");
+        }
 
         /*
          * Test the Java 8 features
@@ -94,10 +125,15 @@ public class Sample {
 
         double s = myList.stream ( ).mapToDouble ( Number::doubleValue ).sum ( );
         System.out.println ( s );
-
+        CompareClass c1 = new CompareClass(1, "Mayank");
+        CompareClass c2 = new CompareClass(2, "Nishant");
+        TreeSet<CompareClass> treeSet = new TreeSet<>((ob1, ob2) -> ob2.name.compareTo(ob1.name));
+        treeSet.add(c1);
+        treeSet.add(c2);
+        treeSet.forEach(ob -> System.out.println("Value in TreeSet:: " + ob));
         /*
          * Test the Encoding methods
-         */
+         *
 
         String original = new String ("This is my string valúe");
         byte ptext[] = new byte[0];
@@ -116,8 +152,10 @@ public class Sample {
          */
 
         System.out.println("\n\nTesting Annotations now in class...\n\n");
-        Class <TestExample> testExampleClass = TestExample.class;
+        TestExample testExample = new TestExample();
+        Class <?> testExampleClass = testExample.getClass();
 
+        System.out.println("Valid Class: " + (testExampleClass == TestExample.class));
         // Process @TesterInfo
         if (testExampleClass.isAnnotationPresent(TesterInfo.class)) {
 
@@ -180,6 +218,90 @@ public class Sample {
         }
         System.out.printf("%nResult : Total : %d, Passed: %d, Failed %d, Ignore %d%n", count, passed, failed, ignore);
 
+        /**
+         * Test References
+         */
+
+        List<String> testList = Arrays.asList("A", "B", "C", "D");
+        System.out.println("testList:: "+ testList);
+        List<String> testTestList = new ArrayList <>(testList);
+        testTestList.removeIf( a -> a.equals("A"));
+        System.out.println("testList:: "+ testList);
+        System.out.println("testTestList:: "+ testTestList);
+
+        /*
+         * Testing the java.net.URLDecoder/ URLEncoder
+         */
+        String urlDecoder = URLDecoder.decode("p%40ssw0rd%279%27%21");
+        System.out.println("url decoder: " + urlDecoder);
+        String urlEncoder = URLEncoder.encode("p@ssw0rd'9'!");
+        System.out.println("url encoder: " + urlEncoder);
+
+        /*
+         * Testing the spring framework.URLDecoder/ URLEncoder
+         *
+        try {
+            String urlDecoder = UriUtils.decode("fe%C3%9F233%5E", "UTF-8");
+            System.out.println("url decoder: " + urlDecoder);
+        } catch (Exception e) {
+            //no-op
+        }*/
+
+        System.out.println("Minimum value for double: " + Double.MIN_VALUE);
+        char[] chars = new char[] {'6' , '4'};      // contains the HEX number; 0x64 = 100
+        String sChars = new String(chars);
+        System.out.println("Integer to hex string: " + Integer.parseInt(sChars, 16));
+        // parseInt with the second parameter will convert any number (number is supplied as
+        // String in first argument and radix denotes the type of the number belongs to such as
+        // hex or octal or any such) to Integer
+        System.out.println("Hex to int: " + Integer.toHexString(100));
+
+        String query = "select * from weather where city = ?";
+        String []splitQuery = query.split("\\?");
+        for (String queryPart: splitQuery) {
+            System.out.println("Splitted Query: " + queryPart);
+        }
+        System.out.println("Split Query Length: " + splitQuery.length);
+
+        ArrayList<Integer> arrayListTesting = new ArrayList<>();
+        arrayListTesting.add(1);
+        arrayListTesting.add(2);
+        arrayListTesting.add(0, 3);
+        System.out.println(arrayListTesting);
+
+        String testString = "SGVsbG8=";             //Mayank£
+        byte []b = testString.getBytes();
+        String testedString = new String(b);
+        System.out.println("Tested Byte array: " + testedString);
+//        byte[] bytesDecoded = Base64.decodeBase64(testString.getBytes());
+//        System.out.println("Decoded value is " + new String(bytesDecoded));
+//        byte[] valueEncoded = Base64.encodeBase64(bytesDecoded);
+//        System.out.println("Encoded value is " + new String(valueEncoded));
+
+        String message = "'awsaccessid=1212121212;awssecretid=cddwf123>3w1`3w13'";
+        String replacedString = message.replaceAll("'awsaccessid=(.*);awssecretid=(.*)'",
+                "'awsaccessid=;awssecretid='");
+        System.out.println("Masked String1: "  + replacedString);
+
+        System.out.println("Boolean String1: "  + Boolean.valueOf("true ".trim()));
+
+        String message2 = "'awsaccessid=1212121212;awssecretid=cddwf123>3w1`3w13'<root " +
+                "version=\"2.0\"><r>";
+        String replacedString2 = message2.replaceAll("<root (.*)><",
+                "<root xmlns=w2e2 version=2.3><");
+
+        System.out.println("Masked String2: "  + replacedString2);
+
+        System.out.println("Boolean String2: "  + Boolean.valueOf("true ".trim()));
+    }
+
+    private static void testException() throws NullPointerException {
+        String a = null;
+        try {
+            a.length();
+        } catch(NullPointerException e) {
+            System.out.println("Exception found in testException");
+        }
     }
 
     public static void setName(String s, FunctionalInterfaceTest t) {

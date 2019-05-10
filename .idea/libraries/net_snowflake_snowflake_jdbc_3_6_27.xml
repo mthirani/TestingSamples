@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="net.snowflake:snowflake-jdbc:3.6.27" type="repository">
+    <properties maven-id="net.snowflake:snowflake-jdbc:3.6.27" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/snowflake/snowflake-jdbc/3.6.27/snowflake-jdbc-3.6.27.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/snowflake/snowflake-jdbc/3.6.27/snowflake-jdbc-3.6.27.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/snowflake/snowflake-jdbc/3.6.27/snowflake-jdbc-3.6.27.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

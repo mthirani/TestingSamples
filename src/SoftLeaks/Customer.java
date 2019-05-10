@@ -1,0 +1,26 @@
+package SoftLeaks;
+
+/**
+ * Created by mayankthirani on 2/21/19.
+ */
+public class Customer {
+
+    private int id;
+    private String name;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String toString() {
+        return id + " : " + name;
+    }
+
+    public Customer(String name) {
+        super();
+        this.name = name;
+    }
+
+
+}
+

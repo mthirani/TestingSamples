@@ -22,7 +22,7 @@ public class TestExample {
     @TestingAnnotations(enabled = true)
     void testC() {
         if (10 > 1) {
-            // do nothing, this test is always passed.
+            System.out.println("In method C in TestExample");
         }
     }
 
