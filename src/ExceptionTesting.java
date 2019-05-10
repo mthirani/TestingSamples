@@ -16,6 +16,7 @@ public class ExceptionTesting {
         System.out.println("Size of linked list: " + linkedList.size());
         try {
             testExceptionInParent();
+            System.out.println("No Exception caught in main(): ");
         } catch (SQLException e) {
             Throwable t = Throwables.getRootCause(e);
             System.out.println("Exception caught in main(): " + t);
