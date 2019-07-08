@@ -38,7 +38,6 @@ public class QueryServingModule {
     static final String YES = "Y";
     static final String NAME = "name";
     static final String SCORE = "score";
-    static final String CLUSTER_NAME = "docker-cluster";
     static final String INDEX = "people";
     static final String TYPE = "_doc";
     static final int RETURN_SIZE = 10;
@@ -48,7 +47,7 @@ public class QueryServingModule {
             ObjectMapper mapper = new ObjectMapper();
             client = new PreBuiltTransportClient(
                     Settings.builder()
-                            .put("cluster.name", CLUSTER_NAME).build())
+                            .put("cluster.name", args[2]).build())
                     .addTransportAddress(new TransportAddress(InetAddress.getByName(args[0]),
                             Integer.parseInt(args[1])));
             System.out.println("Do you have any file to load? Press Y for Yes or any other " +
