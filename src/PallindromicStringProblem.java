@@ -79,6 +79,9 @@ class PallindromicStringProblem {
         str = "0";
         k = 0;
         System.out.println(maximumPalinUsingKChanges(str, k));
+        str = "0";
+        k = 1;
+        System.out.println(maximumPalinUsingKChanges(str, k));
     }
 }
 
