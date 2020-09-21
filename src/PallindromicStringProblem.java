@@ -12,16 +12,14 @@ class PallindromicStringProblem {
     /*
      * Returns maximum possible palindrome using k changes
      */
-    static String maximumPalinUsingKChanges(String str, int k) {
+    static String maximumPalinUsingKChanges(String str, int n, int k) {
         char palin[] = str.toCharArray();
-        String result = "";
         int l = 0;
-        int r = str.length() - 1;
+        int r = n - 1;
 
         while (l < r) {
             if (str.charAt(l) != str.charAt(r)) {
-                palin[l] = palin[r] = (char) Math.max(str.charAt(l),
-                        str.charAt(r));
+                palin[l] = palin[r] = (char) Math.max(str.charAt(l), str.charAt(r));
                 k--;
             }
             l++;
@@ -33,7 +31,7 @@ class PallindromicStringProblem {
         }
 
         l = 0;
-        r = str.length() - 1;
+        r = n - 1;
 
         while (l <= r) {
             if (l == r) {
@@ -54,10 +52,8 @@ class PallindromicStringProblem {
             l++;
             r--;
         }
-        for(int i = 0; i < palin.length; i++) {
-            result = result + palin[i];
-        }
-        return result;
+
+        return new String(palin);
     }
 
     /*
@@ -66,22 +62,25 @@ class PallindromicStringProblem {
     public static void main(String[] args) throws ParseException {
         String str = "0011";
         int k = 1;
-        System.out.println(maximumPalinUsingKChanges(str, k));
+        System.out.println(maximumPalinUsingKChanges(str, str.length(), k));
         str = "0011";
         k = 3;
-        System.out.println(maximumPalinUsingKChanges(str, k));
+        System.out.println(maximumPalinUsingKChanges(str, str.length(), k));
         k = 3;
         str = "092282";
-        System.out.println(maximumPalinUsingKChanges(str, k));
+        System.out.println(maximumPalinUsingKChanges(str, str.length(), k));
         str = "3943";
         k = 1;
-        System.out.println(maximumPalinUsingKChanges(str, k));
+        System.out.println(maximumPalinUsingKChanges(str, str.length(), k));
         str = "0";
         k = 0;
-        System.out.println(maximumPalinUsingKChanges(str, k));
+        System.out.println(maximumPalinUsingKChanges(str, str.length(), k));
         str = "0";
         k = 1;
-        System.out.println(maximumPalinUsingKChanges(str, k));
+        System.out.println(maximumPalinUsingKChanges(str, str.length(), k));
+        str = "";
+        k = 1;
+        System.out.println(maximumPalinUsingKChanges(str, str.length(), k));
     }
 }
 

@@ -15,19 +15,7 @@ import java.util.stream.Stream;
 //import java.net.URLDecoder;
 
 public class Sample {
-    enum Gender {
-        MALE("male"), FEMALE("female");
-        private String name;
-        Gender(String name){
-            this.name = name;
-        }
-
-        String getName() {
-            return name;
-        }
-    };
-
-    public static void main(String []args) {
+    public static void main(String[] args) {
 
         try {
             testException();
@@ -37,7 +25,7 @@ public class Sample {
 
         Gender genderType = Gender.MALE;
         if (genderType == Gender.MALE) {
-            System.out.println("Male found");
+            System.out.println(genderType + " found");
         }
         genderType = null;
         if (genderType == Gender.MALE) {
@@ -48,7 +36,7 @@ public class Sample {
          * Test the Java 8 features
          */
 
-        FunctionalInterfaceTest t = s -> {
+        FunctionalInterfaceTest t = (s) -> {
             System.out.println ( "Hello " + s );
             return "Hello " + s;
         };
@@ -295,6 +283,8 @@ public class Sample {
         System.out.println("Boolean String2: "  + Boolean.valueOf("true ".trim()));
     }
 
+    ;
+
     private static void testException() throws NullPointerException {
         String a = null;
         try {
@@ -306,5 +296,22 @@ public class Sample {
 
     public static void setName(String s, FunctionalInterfaceTest t) {
         t.printString ( s );
+    }
+
+    enum Gender {
+        MALE("male"), FEMALE("female");
+        private String name;
+
+        Gender(String name) {
+            this.name = name;
+        }
+
+        String getName() {
+            return name;
+        }
+
+        public String toString() {
+            return name;
+        }
     }
 }

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ImageDownloader/ImageDownloader.iml" filepath="$PROJECT_DIR$/ImageDownloader/ImageDownloader.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestingSamples.iml" filepath="$PROJECT_DIR$/TestingSamples.iml" />
     </modules>
   </component>
