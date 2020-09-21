@@ -28,7 +28,8 @@ public class PermutationWithRegex {
         //p = Pattern.compile("\\bdt1\\b");   //Find all dt1's (even if dt1 contains .)
         //p = Pattern.compile("([.]*)(\\bdt1\\b)([.]*)"); //Find all dt1's
         p = Pattern.compile("(?![\\.])\\bdt1\\b(?![\\.])"); // ELT way of extracting-word with no
-        // dots; Find exact dt1 not even with dt1.
+        // dots; Find exact dt1 not even with dt1. This is entire treated as expression, not to
+        // extract on group basis.
         m = p.matcher("select dt1.a from (select * from table_name) dt1");
         while (m.find()) {
             //System.out.println("Matches:: " + m.find());
@@ -79,7 +80,9 @@ public class PermutationWithRegex {
             count++;
         }
 
-        p = Pattern.compile("(?<=bookid=)\\d+");
+        p = Pattern.compile("(?<=bookid=)\\d+"); // this is entire treated as expression, not to
+        // extract on group basis. So either group() or group(0) will be same and we don't get
+        // any result in group(1) etc..
         m = p.matcher("bookname=cooking&bookid=123456&bookprice=123.45");
         count = 0;
         while (m.find()) {
