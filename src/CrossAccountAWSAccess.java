@@ -113,15 +113,15 @@ public class CrossAccountAWSAccess {
         s3Client = s3.build();
         System.out.println("Bucket Location Again :: " + s3Client.getBucketLocation("mthirani"));
         ListObjectsV2Request listObjectsV2Request = new ListObjectsV2Request().withBucketName
-                ("mthirani").withPrefix("hd5_files/jar");
+                ("mthirani").withPrefix("");
         ListObjectsV2Result result = s3Client.listObjectsV2(listObjectsV2Request);
         for (final S3ObjectSummary s3ObjectSummary : result.getObjectSummaries()) {
-            String fileName = s3ObjectSummary.getKey();
-            System.out.println("Key:: " + fileName);
-            System.out.println("Extracted Filename:: " + fileName.substring(fileName.lastIndexOf
-                    ("/") + 1));
-            Pattern p = Pattern.compile("(.)*(-BETA)");
-            Matcher matcher = p.matcher(fileName.substring(fileName.lastIndexOf("/")));
+            String fullPath = s3ObjectSummary.getKey();
+            System.out.println("Key:: " + fullPath);
+            String extractFileName = fullPath.substring(fullPath.lastIndexOf("/") + 1);
+            System.out.println("Extracted Filename:: " + extractFileName);
+            Pattern p = Pattern.compile("(.)*csv$");  //(.)*csv  (.)*(-BETA)
+            Matcher matcher = p.matcher(extractFileName);
             if (matcher.find()) {
                 System.out.println("File matched with pattern");
             }
