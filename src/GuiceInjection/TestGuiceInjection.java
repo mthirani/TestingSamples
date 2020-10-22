@@ -2,6 +2,8 @@ package GuiceInjection;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.name.Names;
 
 /**
  * Created by mayankthirani on 7/2/18.
@@ -13,6 +15,10 @@ public class TestGuiceInjection {
         MainClass mainClass = injector.getInstance(MainClass.class);
         mainClass.print();
         mainClass.printTest();
+        String message = injector.getInstance(Key.get(String.class, Names.named("Message")));
+        System.out.println("message found: " + message);
+        int count = injector.getInstance(Integer.class);
+        System.out.println("count found: " + count);
 
         MainClass mainClass2 = new MainClass();
         try {

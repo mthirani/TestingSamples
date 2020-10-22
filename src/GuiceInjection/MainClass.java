@@ -1,6 +1,7 @@
 package GuiceInjection;
 
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 /**
  * Created by mayankthirani on 7/2/18.
@@ -8,6 +9,7 @@ import com.google.inject.Inject;
 public class MainClass {
     SubClass subClass;
     SubClass2 subClass2;
+    String message;
 
     @Inject
     Test test;
@@ -17,9 +19,10 @@ public class MainClass {
     }
 
     @Inject
-    MainClass(SubClass subClass, SubClass2 subClass2) {
+    MainClass(@Named("Message") String message, SubClass subClass, SubClass2 subClass2) {
         this.subClass = subClass;
         this.subClass2 = subClass2;
+        this.message = message;
         System.out.println("Parametrized Constructor In Main Class");
     }
 
